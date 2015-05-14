@@ -1,0 +1,53 @@
+/****************
+**	HOME SCSS
+****************/
+
+.blog-entry {
+
+}
+
+.blog-entry-title {
+	color: $orange;
+}
+
+.blog-entry-excerpt {
+	color: $white;
+}
+
+.blog-entry-meta {
+	margin-top: .5em;
+}
+
+.blog-entry-meta a {
+	color: $grey-50;
+	font-style: italic;
+}
+
+
+#home .blog-feed {
+	flex: 0 0 75%;
+	-webkit-flex: 0 0 75%;
+	padding-right: 1em;
+}
+
+#home .right-sidebar {
+	flex: 0 0 25%;
+	-webkit-flex: 0 0 25%;
+}
+
+@include bp_small() {
+	#home .flex {
+		flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+	}
+
+	#home .blog-feed {
+		margin-bottom: 1em;
+	}
+
+	#home .blog-feed,
+	#home .right-sidebar {
+		flex: 0 0 100% !important;
+		-webkit-flex: 0 0 100% !important;
+	}
+}

@@ -1,0 +1,302 @@
+/* ======================================================
+
+    TYPOGRAPHY
+
+    many who approach web typography end up in a labyrinth
+    of vertical rhythms, golden ratios, and SASS functions
+
+    we take a clean, empirical approach, defining sizes
+    and line heights that read well at all screen widths,
+    rather than attempting to construct the GUT
+    (Grand Unified Typography)
+
+
+   ====================================================== */
+
+/* mobile width type styles first */
+main {
+  font-size: 1em;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 1.25em;
+  font-family: $font-roboto-condensed;
+}
+
+h2 {
+  font-size: 1.625em;
+  line-height: 1.25em;
+  font-weight: 500;
+  font-family: $font-roboto;
+}
+
+h3 {
+  font-size: 1.375em;
+  line-height: 1.125em;
+  font-weight: 500;
+  font-family: $font-roboto;
+}
+
+h4 {
+  font-size: 1.125em;
+  font-weight: 500;
+  font-family: $font-roboto;
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: 600;
+  font-family: $font-roboto;
+}
+
+h6 {
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 600;
+  font-family: $font-roboto;
+}
+
+p {
+  font-size: 1em;
+  font-family: $font-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  //font-family: $font-headline;
+  margin: .5em 0;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  max-width: 100%;
+  max-width: $width-page;
+}
+
+h1,
+h2,
+h3 {
+  small {
+    font-size: 67%;
+  }
+}
+
+h4,
+h5,
+h6 {
+  small {
+    font-size: 75%;
+  }
+}
+
+small {
+  font-size: .875em;
+}
+
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+.text-nowrap { white-space: nowrap; }
+.text-lowercase { text-transform: lowercase; }
+.text-uppercase { text-transform: uppercase; }
+.text-capitalize { text-transform: capitalize; }
+.text-tiny { font-size: .75em; }
+.text-small { font-size: .875em; }
+.text-medium { font-size: 1.25em; }
+.text-large { font-size: 1.5em; }
+.text-xlarge { font-size: 2em; }
+.text-weight-med {font-weight: 400;}
+.text-weight-light {font-weight: 300;}
+.text-ellipsis,
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text-hide,
+.hide-text { 
+  font: 0/0; 
+  color: transparent; 
+  text-shadow: none; 
+  background-color: 
+  transparent; border: 0; 
+}
+.text-trunc,
+.trunc { 
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+ }
+ .ir { text-indent: 100%; white-space: nowrap; overflow: hidden; }
+
+
+
+/* for tiny screens, shrink those headers down */
+@media screen and (max-width: 24em) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  h3 {
+    font-size: 1.125em;
+  }
+
+  h4, h5, h6 {
+    font-size: 1em;
+  }
+}
+
+/* > 536px --- mobiles */
+@media screen and (min-width: 33.5em) {
+
+}
+
+/* > 700px --- phablets */
+@media screen and (min-width: 44em) {
+  /* size up the text */
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.125;
+  }
+
+  h2 {
+    font-size: 2em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 1.225em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 1.125em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1em;
+    line-height: 1.125;
+    font-weight: 600;
+  }
+
+  blockquote {
+    font-size: 1.5em;
+    line-height: 1.475em;
+  }
+
+}
+
+
+@media print {
+  main {
+    font-size: 12pt;
+    padding: 1in;
+    line-height: 1.5em;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 30pt;
+  }
+
+  h2 {
+    font-size: 24pt;
+  }
+
+  h3, h4 {
+    font-size: 18pt;
+  }
+
+  h5, h6 {
+    font-size: 16pt;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+  }
+}
+
+pre, code {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+  white-space: pre\9;
+  background: $grey-10;
+  color: $grey-80;
+  font-family: $font-monospace;
+}
+
+kbd {
+  background: $grey-80;
+  color: white;
+  font-weight: 700;
+  font-family: $font-monospace;
+  padding: 2px 4px;
+}
+
+blockquote {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  font-family: var(--serif);
+  font-style: italic;
+  margin: 2em 8em 2em 2em;
+}
+
+blockquote cite, blockquote + cite {
+  font-size: .75em;
+  font-style: normal;
+  font-family: var(--sans-serif);
+  text-align: right;
+  display: block;
+}
+
+blockquote cite:before, blockquote + cite:before {
+  content: "\2014";
+}
+
+.center h1,
+.center h2,
+.center h3,
+.center h4,
+.center h5,
+.center h6,
+.center p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/*h1:first-child, 
+h2:first-child, 
+h3:first-child {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 300;
+}*/

@@ -1,0 +1,294 @@
+/*
+ *  AUDIO PLAYER CSS
+ *  @date 12/14
+ *  @author Andrew Carl
+ *
+ ===========*/
+
+.buy-link {
+  margin-top: .5em;
+  display: inline-block;
+  background: $orange;
+  padding: .5em;
+  color: $white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: .8em;
+  transition: background, ease, 0.3s;
+  -webkit-transition: background, ease, 0.3s;
+  -moz-transition: background, ease, 0.3s;
+}
+
+.buy-link:hover,
+.buy-link:active {
+  color: $white !important;
+  background: lighten($orange, 10%)
+}
+
+#audio-player {
+
+  & > section {padding: 2em;}
+  & > section > h3 {margin: 0 0 1em 0;}
+
+  .album-container {
+    display: table;
+    width: 100%;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    border-bottom: 2px solid $grey-63;
+
+    .album-single:not(:last-child) {
+      margin-right: 2em;
+    }
+
+    .album-single {
+      position: relative;
+      float: left;
+      width: 10em;
+      height: 10em;
+      overflow: hidden;
+
+      img {width: 100%; height: auto;}
+
+      .album-meta {
+        height: auto;
+        width: 100%;
+        display: inline-block;
+        background: rgba(0,0,0,.75);
+        padding: .5em;
+        position: absolute;
+        bottom: -65px;
+        left: 0;
+        transition: all, .3s, ease;
+        -moz-transition: all, .3s, ease;
+        -webkit-transition: all, .3s, ease;
+
+        span {width: 100%;display:inline-block;}
+
+        .title {font-family: $font-couture;}
+        .year {font-family: $font-roboto; color: $orange; font-size: .8em;}
+      }
+
+      &:hover .album-meta,
+      &.active .album-meta {
+        bottom: 0px;
+      }
+
+    }
+
+    .album-single.active::before {
+      content: "\ea27";
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      z-index: 99;
+      padding: .25em;
+      text-shadow: 1px 1px 10px black;
+      font-family: 'icomoon';
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      color: $white;
+    }
+  }
+
+
+  .player-wrapper {
+    width: 100%;
+    display: table;
+  }
+
+
+  /*  Audio Player Module */
+  .player-container {
+    width: 55%;
+    float: left;
+  }
+
+  .player-album,
+  .player-meta,
+  .player-tracks {
+    width: 100%;
+    display: table;
+  }
+
+  .player-meta {
+    
+    .play-btn {
+      display: table-cell;
+      vertical-align: middle;
+      padding-right: 1em;
+      width: 45px;
+
+      .btn-box {
+        height: 45px;
+        width: 45px;
+        background: $grey-10;
+        color: $grey-80;
+        font-size: 30px;
+        line-height: 50px;
+        text-align: center;
+      }
+    }
+
+    .track-meta {
+      display: table-cell;
+      vertical-align: middle;
+
+      .title {font-size: 14px;}
+
+      .play-options { 
+        
+        .progress {
+          display: inline-block;
+          width: 60%;
+          position: relative;
+          height: 3px;
+          vertical-align: middle;
+          background: white;
+          overflow: hidden;
+
+          span {
+            background: $orange;
+            height: 3px;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        .control {
+          width: 35%;
+          display: inline-block;
+          vertical-align: middle;
+
+          button:not([disabled]):hover {
+            color: $orange;
+          }
+
+          button[disabled],
+          button[disabled]:hover {
+            opacity: .75;
+          }
+        }
+
+      }
+    }
+  } 
+
+  .album-description {
+    width: 45%;
+    float: left;
+
+    h3 {
+      margin-top: 0;
+      font-size: 1em;
+      text-transform: uppercase;
+
+      .title {color: $orange;}
+    }
+    .text {
+      font-size: .8em;
+    }
+  }
+
+  .track-container {
+    padding: 1em 0;
+    
+    .track-single {
+      display: table;
+      margin-bottom: .5em;
+
+      button {
+        display: table-cell;
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+        line-height: 18px;
+        padding: 0;
+        text-align: center;
+        background: $grey-10;
+        color: $grey-80;
+      }
+
+      span {
+        display: table-cell;
+        font-size: 14px;
+        padding-left: .5em;
+      }
+    }
+  }
+
+  button {
+    border: none;
+    background: transparent;
+    color: $white;
+  }
+
+  @media (max-width: 550px) {
+    .album-description,
+    .player-container {
+      width: 100%;
+      clear:both;
+      display:inline-block;}
+  }
+
+  /*
+   *  ANIMATED CSS AUDIO BARS
+   *  @source http://codepen.io/andrewjcarl/pen/yyazzW
+   *
+   =========*/
+
+  .bars {
+      height: 20px;
+      width: 20px;
+      position: relative;
+      display: inline-block;
+  }
+
+  .animated .bar {
+      animation: sound 0ms -800ms linear infinite alternate;
+      -webkit-animation: sound 0ms -800ms linear infinite alternate;
+  }
+
+  .bar {
+     background: white;
+      bottom: 1px;
+      height: 3px;
+      position: absolute;
+      width: 3px;
+      transition: height, 0.3s, ease;
+      -moz-transition: height, 0.3s, ease;
+      -webkit-transition: height, 0.3s, ease;      
+  }
+
+  @keyframes sound {
+      0% {
+         opacity: .35;
+          height: 3px; 
+      }
+      100% {
+          opacity: 1;       
+          height: 14px;        
+      }
+  }
+
+  @-webkit-keyframes sound {
+      0% {
+         opacity: .35;
+          height: 3px; 
+      }
+      100% {
+          opacity: 1;       
+          height: 14px;        
+      }
+  }
+
+  .bar:nth-child(1)  { left: 1px; animation-duration: 474ms;-webkit-animation-duration: 474ms; }
+  .bar:nth-child(2)  { left: 5px; animation-duration: 433ms;-webkit-animation-duration: 433ms; }
+  .bar:nth-child(3)  { left: 9px; animation-duration: 407ms;-webkit-animation-duration: 407ms; }
+  .bar:nth-child(4)  { left: 13px; animation-duration: 458ms;-webkit-animation-duration: 458ms; }
+}

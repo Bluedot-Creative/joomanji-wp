@@ -1,0 +1,51 @@
+/* =================================
+   FONTS
+
+   a typeface can greatly impact the image and voice of a site
+   so we have carefully chosen fonts that mesh well with our word mark
+   and that hint at the value we place on efficient, futuristic thinking
+
+   custom fonts add to page load times
+   but we pay this penalty to stand out from the hoi polloi
+
+   ================================= */
+
+/* for body copy, we use Gudea from Google Fonts */
+/* https://www.google.com/fonts/specimen/Gudea */
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700,300,500|Alegreya+Sans+SC:400,700|Ek+Mukta:400,700);");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+
+
+@font-face {
+ font-family: 'Couture Bold';
+ src: url('../../assets/fonts/couture_bold/couture_bold.eot');
+ src: url('../../assets/fonts/couture_bold/couture_bold.eot?#iefix') format('embedded-opentype'), url('../../assets/fonts/couture_bold/couture_bold.svg#Couture Bold') format('svg'), url('../../assets/fonts/couture_bold/couture_bold.woff') format('woff'), url('../../assets/fonts/couture_bold/couture_bold.ttf') format('truetype');
+ font-weight: normal;
+ font-style: normal;
+}
+
+
+$font-couture: "Couture Bold", Arial, sans-serif;
+$font-roboto: "Roboto", Arial, sans-serif;
+$font-roboto-condensed: "Roboto Condensed", Arial, sans-serif;
+$font-alegreya: "Alegreya Sans SC", sans-serif;
+$font-ek-mukta: "Ek Mukta", sans-serif;
+
+/* for headlines and interface elements, we use Soleil from Typekit
+ * this typeface pairs uniquely well with our logo
+ * it is loaded to the page asynchronously via javascript
+ * Twinkle has its own Typekit Kit containing several weights of Soleil
+ * Typekit login: uxteam@solarcity.com */
+
+/* TODO: pare down the Typekit set to only weights we use, once we know what those are */
+
+$font-headline: $font-roboto;
+$font-interface: $font-roboto;
+
+$font-logo: $font-couture;
+
+$font-body: $font-roboto;
+$font-menu: $font-alegreya;
+
+$font-monospace: "Anonymous Pro", "Consolas", Courier, monospace;

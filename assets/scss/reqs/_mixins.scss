@@ -1,0 +1,161 @@
+/* ====================================
+ * MIXINS and FUNCTIONS
+ * ==================================== */
+
+/* Variables
+ * ==================================== */
+
+// $site-width: 1040px;
+$base-spacing: 1em;
+$block-padding: 3em;
+
+/* Media queries
+ * ==================================== */
+
+@mixin bp_huge {
+    @media only screen and (max-width: 65em) {
+        @content;
+    }
+}
+
+@mixin bp_large {
+    @media only screen and (max-width: 55em) {
+        @content;
+    }
+}
+
+@mixin bp_medium {
+    @media only screen and (max-width: 50em) {
+        @content;
+    }
+}
+
+@mixin bp_small {
+    @media only screen and (max-width: 45em) {
+        @content;
+    }
+}
+
+/* Mixins and functions
+ * ==================================== */
+
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return #{$remSize}rem;
+}
+
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+/* Extendables
+   ====================================
+  nest these in your other rules like so:
+
+  .example-class {
+    @extend %extendable-name;
+    border-color: red;
+  }
+*/
+
+%hide-text {
+    text-indent: -99999px;
+    direction: ltr;
+}
+
+%visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+%clearfix {
+    *zoom: 1;
+
+    &:before {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+%vertical-align {
+    position: relative;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+%btn-with-icon {
+    position: absolute;
+    top: 0;
+    left: 3px;
+    padding-right: 3px;
+    vertical-align: middle;
+    display: table-cell;
+    font-size: inherit;
+    line-height: inherit;
+    border-width: 1px;
+    border-style: solid;
+    height: 100%;
+}
+
+/* ======================
+  Progress Bar  */
+
+@mixin progress-bar($color: $grey-80) {
+    background: transparent;
+    height: 25px;
+    padding: 5px;
+    width: auto;
+
+    & span {
+        display: block;
+        height: 100%;
+        border-radius: 3px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+        background-color: $color;
+        background-image: linear-gradient(top, $color, $color);
+        background-size: 30px 30px;
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        -moz-animation: animate-stripes 3s linear infinite;
+        -o-animation: animate-stripes 3s linear infinite;
+        -webkit-animation: animate-stripes 3s linear infinite;
+        animation: animate-stripes 3s linear infinite;
+    }
+}
+
+@mixin background-gradient($top: $grey-63, $bottom: $grey-80) {
+    background: $top; /* Old browsers */
+    background: -moz-linear-gradient(top, $top 0%, $bottom 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(99%,$bottom)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, $top 0%,$bottom 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, $top 0%,$bottom 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, $top 0%,$bottom 99%); /* IE10+ */
+    background: linear-gradient(to bottom, $top 0%,$bottom 99%); /* W3C */
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr= '#{$top}', endColorstr='#{$bottom}',GradientType=0 );" /* IE6-9 */
+}
+
+
+@mixin background-vertical-gradient($top: $grey-63, $bottom: $grey-80) {
+    background: $top; /* Old browsers */
+    background: -moz-linear-gradient(right, $top 0%, $bottom 99%); /* FF3.6+ */
+    background: -webkit-linear-gradient(left, $top 0%,$bottom 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(right, $top 0%,$bottom 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(right, $top 0%,$bottom 99%); /* IE10+ */
+    background: linear-gradient(to right, $top 0%,$bottom 99%); /* W3C */
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr= '#{$top}', endColorstr='#{$bottom}',GradientType=0 )"; /* IE6-9 */
+}

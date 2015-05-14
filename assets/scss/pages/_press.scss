@@ -1,0 +1,20 @@
+
+
+.press {
+  font-family: $font-roboto;
+  font-size: 14px;
+
+  p {
+    text-align: justify;
+    font-style: italic;
+  }
+
+  a {
+    font-family: $font-roboto-condensed;
+    text-transform: uppercase;
+    color: $orange;
+    font-weight: bold; 
+    font-size: 1.2em;
+  }
+
+}

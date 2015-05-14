@@ -1,0 +1,2639 @@
+/*!
+ * joomanji-child v1.0.0
+ * Build date: 2015-05-14
+ * Copyright 2014.
+ */
+@charset "UTF-8";
+/* ======================================================
+    REQUISITES - dependencies, variables, mixins, etc.
+   ====================================================== */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=
+   COLORS
+   =========================== */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=
+   VARIABLES
+   =========================== */
+/* =================================
+   FONTS
+
+   a typeface can greatly impact the image and voice of a site
+   so we have carefully chosen fonts that mesh well with our word mark
+   and that hint at the value we place on efficient, futuristic thinking
+
+   custom fonts add to page load times
+   but we pay this penalty to stand out from the hoi polloi
+
+   ================================= */
+/* for body copy, we use Gudea from Google Fonts */
+/* https://www.google.com/fonts/specimen/Gudea */
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700,300,500|Alegreya+Sans+SC:400,700|Ek+Mukta:400,700);");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+@font-face {
+  font-family: 'Couture Bold';
+  src: url("../../assets/fonts/couture_bold/couture_bold.eot");
+  src: url("../../assets/fonts/couture_bold/couture_bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/couture_bold/couture_bold.svg#Couture Bold") format("svg"), url("../../assets/fonts/couture_bold/couture_bold.woff") format("woff"), url("../../assets/fonts/couture_bold/couture_bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* for headlines and interface elements, we use Soleil from Typekit
+ * this typeface pairs uniquely well with our logo
+ * it is loaded to the page asynchronously via javascript
+ * Twinkle has its own Typekit Kit containing several weights of Soleil
+ * Typekit login: uxteam@solarcity.com */
+/* TODO: pare down the Typekit set to only weights we use, once we know what those are */
+/* ====================================
+   GRIDS and LAYOUT
+
+   building a well-named grid system is notoriously difficult
+   so we offer a few options
+
+   the first is what we call a FRACTIONAL GRID
+   it aims to be responsive, browser-friendly, flexible, and easy to lay out
+
+   the next is a FLEXBOX GRID
+   it is the future, but requires more shims, shivs, polyfills, and fallbacks
+
+   the last is the traditional FIXED GRID
+   you may remember it from such frameworks as Bootstrap
+
+   ==================================== */
+/* ====================================
+ * HEADER & NAV SIZING
+ * ==================================== */
+/* ====================================
+ * PAGE SIZING
+ * ==================================== */
+/* ====================================
+ * FRACTIONAL GRID
+ * this grid uses justified inline-blocks
+ * ==================================== */
+/* first make a row */
+.row {
+  font-size: 0.1px;
+  text-align: justify;
+  /* then add blocks of fractional widths to the rows */
+}
+.row:after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+  height: 0;
+}
+.row.center * {
+  text-align: center;
+}
+.row .block {
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+  font-size: 1rem;
+  /* on mobile, stretch the partial blocks to full width */
+}
+.row .block.center {
+  margin: 0 auto;
+  display: block;
+}
+.row .block.half, .row .block.full, .row .block.third.two, .row .block.fourth.three, .row .block.third {
+  width: 100%;
+}
+.row .block.sixth, .row .block.fifth, .row .block.fourth {
+  width: 48%;
+}
+.row .block.seventh {
+  width: 14.2%;
+  text-align: center;
+}
+
+/* > 536px --- bigger than iPhone portrait */
+@media screen and (min-width: 33.5em) {
+  /* let .half .third etc. express themselves */
+  .row .block.half {
+    width: 48%;
+  }
+}
+/* > 700px --- phablets */
+@media screen and (min-width: 44em) {
+  ul.row {
+    margin: 0;
+    padding: 0;
+  }
+}
+/* > 831px */
+@media screen and (min-width: 52em) {
+  .row .block.third {
+    width: 31%;
+  }
+  .row .block.third.two {
+    width: 64%;
+  }
+}
+/* > 1007px */
+@media screen and (min-width: 63em) {
+  .row .block.fourth {
+    width: 23%;
+  }
+  .row .block.fourth.three {
+    width: 73%;
+  }
+}
+/* > 1199px */
+@media screen and (min-width: 75em) {
+  .row .block.fifth {
+    width: 18.5%;
+  }
+  .row .block.fifth.two {
+    width: 37%;
+  }
+  .row .block.fifth.four {
+    width: 78.5%;
+  }
+  .row .block.sixth {
+    width: 14.5%;
+  }
+  .row .block.sixth.five {
+    width: 84%;
+  }
+}
+/* ====================================
+ * MIXINS and FUNCTIONS
+ * ==================================== */
+/* Variables
+ * ==================================== */
+/* Media queries
+ * ==================================== */
+/* Mixins and functions
+ * ==================================== */
+/* Extendables
+   ====================================
+  nest these in your other rules like so:
+
+  .example-class {
+    @extend %extendable-name;
+    border-color: red;
+  }
+*/
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* ======================
+  Progress Bar  */
+[class^="columns-"], [class*=" columns-"] {
+  -moz-column-gap: 2em;
+  -webkit-column-gap: 2em;
+}
+
+.columns-two {
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+}
+
+.columns-three {
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+}
+
+.columns-four {
+  -moz-column-count: 4;
+  -webkit-column-count: 4;
+}
+
+.column-single {
+  break-inside: avoid-column;
+  -webkit-column-break-inside: avoid;
+  display: block;
+  margin-bottom: 2em;
+}
+.column-single img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ====================================
+ * FLEXBOX GRID
+ * ==================================== */
+.flex {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-cell {
+  flex: 1;
+}
+
+/* With gutters */
+.flex-gutters {
+  margin-left: -1em;
+  margin-bottom: 2em;
+}
+
+.flex-gutters > .flex-cell {
+  padding-left: 1em;
+}
+
+.flex + .flex {
+  margin-top: 1em;
+}
+
+/* Alignment per row */
+.flex-top {
+  align-items: flex-start;
+}
+
+.flex-bottom {
+  align-items: flex-end;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+/* Alignment per cell */
+.flex-cell-top {
+  align-self: flex-start;
+}
+
+.flex-cell-bottom {
+  align-self: flex-end;
+}
+
+.flex-cell-center {
+  align-self: center;
+}
+
+/* Base classes for all media */
+.flex-fit > .flex-cell {
+  flex: 1;
+}
+
+.flex-full > .flex-cell {
+  flex: 0 0 100%;
+}
+
+.flex-1of2 > .flex-cell {
+  flex: 0 0 50%;
+}
+
+.flex-1of3 > .flex-cell {
+  flex: 0 0 33.3333%;
+}
+
+.flex-1of4 > .flex-cell {
+  flex: 0 0 25%;
+}
+
+/* Small to medium screens */
+@media (min-width: 24em) {
+  .small-flex-fit > .flex-cell {
+    flex: 1;
+  }
+
+  .small-flex-full > .flex-cell {
+    flex: 0 0 100%;
+  }
+
+  .small-flex-1of2 > .flex-cell {
+    flex: 0 0 50%;
+  }
+
+  .small-flex-1of3 > .flex-cell {
+    flex: 0 0 33.3333%;
+  }
+
+  .small-flex-1of4 > .flex-cell {
+    flex: 0 0 25%;
+  }
+}
+/* Large screens */
+@media (min-width: 48em) {
+  .large-flex-fit > .flex-cell {
+    flex: 1;
+  }
+
+  .large-flex-full > .flex-cell {
+    flex: 0 0 100%;
+  }
+
+  .large-flex-1of2 > .flex-cell {
+    flex: 0 0 50%;
+  }
+
+  .large-flex-1of3 > .flex-cell {
+    flex: 0 0 33.3333%;
+  }
+
+  .large-flex-1of4 > .flex-cell {
+    flex: 0 0 25%;
+  }
+}
+.flex-cell-1of3 {
+  flex: 0 0 33.3333%;
+}
+
+.flex-cell-2of3 {
+  flex: 0 0 66.6666%;
+}
+
+/*
+
+978 Grid System CSS Framework
+http://978.gs
+
+Copyright (c) 2011 Brothers Roloff
+http://www.brothersroloff.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+.layout-978 {
+  width: 978px;
+  margin: 0px auto;
+}
+
+.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
+  float: left;
+  margin-left: 30px;
+}
+
+.col1:first-child, .col2:first-child, .col3:first-child, .col4:first-child, .col5:first-child, .col6:first-child, .col7:first-child, .col8:first-child, .col9:first-child, .col10:first-child, .col11:first-child, .col12:first-child {
+  margin-left: 0px;
+}
+
+.col1 {
+  width: 54px;
+}
+
+.col2 {
+  width: 138px;
+}
+
+.col3 {
+  width: 222px;
+}
+
+.col4 {
+  width: 306px;
+}
+
+.col5 {
+  width: 390px;
+}
+
+.col6 {
+  width: 474px;
+}
+
+.col7 {
+  width: 558px;
+}
+
+.col8 {
+  width: 642px;
+}
+
+.col9 {
+  width: 726px;
+}
+
+.col10 {
+  width: 810px;
+}
+
+.col11 {
+  width: 894px;
+}
+
+.col12 {
+  width: 978px;
+}
+
+/* ======================================================
+    DEFAULTS - the basics, should be all you need
+   ====================================================== */
+/* ======================================================
+
+    CORE STYLES
+
+    after the reset takes effect, the core establishes a
+    healthy foundation for many of the standard html
+    elements and common non-standard page elements
+
+   ====================================================== */
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 16px;
+  font-size: 1rem;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-size: 100%;
+  font-family: "Roboto", Arial, sans-serif;
+  position: relative;
+  padding: 0;
+  color: #FFFFFF;
+  background: url("../../images/background.jpg");
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+/* ======================================================
+    Main container
+   ====================================================== */
+.wrapper {
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+.wrapper.has-nav-fixed {
+  padding-top: 46px !important;
+}
+.wrapper .container {
+  max-width: 60em;
+  margin: 0px auto;
+}
+.wrapper .page {
+  max-width: 60em;
+  margin: 0px auto;
+}
+.wrapper .page > section {
+  width: auto;
+  padding: 2em;
+  margin: 0 1em;
+}
+.wrapper section + section {
+  margin-top: 2em;
+}
+
+@media screen and (min-width: 64em) {
+  main .page > section {
+    padding: 0;
+  }
+}
+/* horizontal dividers */
+hr {
+  background-color: #F0F2F1;
+  display: block;
+  margin: 3em auto;
+  padding: 0;
+  width: 100%;
+  border: none;
+  height: 1px;
+}
+
+section + hr {
+  margin: 3em auto;
+}
+
+hr.inverse {
+  color: var(10grey);
+}
+
+/* Links and anchors
+ * ====================================*/
+a {
+  color: #5F5F5F;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:hover, a:focus {
+  text-decoration: none;
+  color: #de6b15;
+}
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+/* keep anchors from standing out too much when used in different contexts */
+p > a,
+li > a,
+dt > a,
+dd > a,
+span > a,
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Paragraphs
+ * ==================================== */
+p {
+  margin-bottom: 0;
+}
+
+p + p, p + table {
+  margin-top: 1em;
+}
+
+abbr {
+  text-transform: uppercase;
+}
+
+.prsv-caps {
+  text-transform: none;
+}
+
+input.btn {
+  text-transform: none;
+}
+
+/* Menus
+ * ==================================== */
+ul.menu {
+  list-style-type: none;
+}
+
+/* Images
+ * ==================================== */
+img.img-center {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Tables
+
+   Don't use tables, unless you are 
+   building an actual table, or you
+   are currently prior to 1998
+   ==================================== */
+table.table {
+  border: 1px solid #D9D9D9;
+}
+table.table th, table.table td {
+  text-align: left;
+}
+
+table.table-wide {
+  width: 100%;
+}
+
+th, td {
+  padding: .5em 1em;
+  text-align: center;
+}
+
+tr {
+  background: #F9F9F9;
+}
+
+thead tr {
+  background: white;
+  font-weight: 700;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+td code {
+  background-color: inherit;
+}
+
+tr:nth-of-type(2n) {
+  background: white;
+}
+
+/* Yangle
+ * ==================================== */
+div.hero {
+  width: 100%;
+  display: table;
+  background: url(../img/bg-hero.jpg) top center;
+  padding: 5em 0 3em;
+  margin-bottom: 1.5em;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 1px #333333;
+  border-bottom: 2px solid #333333;
+}
+div.hero h1 {
+  margin: 1em 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* ====================================
+ * HELPER CLASSES
+ * ==================================== */
+.disable-hover {
+  pointer-events: none;
+}
+
+/* if you insist on using floats for layout (the justified inline-blocks are highly recommended) */
+.float, .fl {
+  float: left;
+}
+
+.float-right, .fr {
+  float: right;
+}
+
+.cl {
+  clear: both;
+}
+
+/* clearfix for floats, add .group to parent div */
+.oh,
+.group {
+  overflow: hidden;
+}
+
+.group:after,
+.clearfix:before,
+.clearfix:after {
+  display: block;
+  width: 100%;
+  height: 0;
+  content: "\0020";
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.clearfix:after,
+.group:after {
+  clear: both;
+}
+
+.content {
+  background: white;
+  padding-top: 1em;
+}
+
+/* simple reversible hide */
+.hidden,
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+/* super secret irreversible hide */
+.hide-completely {
+  display: none !important;
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+  text-indent: -9999px;
+  position: absolute;
+}
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+/*  scroll classes for hiding/showing scroll */
+.no-scroll {
+  overflow: hidden;
+  -webkit-overflow-scrolling: none;
+}
+
+.scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* a curtain to drop behind a modal overlay */
+.curtain {
+  height: 100% !important;
+  width: 100%;
+  opacity: 0.75 !important;
+  background: var(--black);
+  position: absolute;
+  z-index: 1;
+}
+
+.curtain.in {
+  height: 100%;
+}
+
+/* add number or monetary symbols */
+.dollar, .cents {
+  position: relative;
+}
+
+.dollar:before, .cents:after, .percent:after {
+  font-size: .75em;
+  position: relative;
+  top: -.625em;
+}
+
+.dollar:before {
+  content: "$";
+}
+
+.cents:after {
+  content: "┬ó";
+  top: auto;
+  bottom: 0;
+}
+
+.percent:after {
+  content: "%";
+}
+
+.ab,
+.centered.absolutely {
+  position: absolute;
+}
+
+.centered.absolutely {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/*  more generic center */
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* add this class to anything you want to contain within the page width */
+.contain {
+  /* mobile first, it's full width */
+  width: 100%;
+  padding: 0 .5em;
+}
+
+@media screen and (min-width: 33.5em) {
+  .contain {
+    padding: 0 1em;
+  }
+}
+@media screen and (min-width: 44em) {
+  .contain {
+    padding: 0 2em;
+  }
+}
+@media screen and (min-width: 75rem) {
+  /* sets and contains contents within the page width */
+  .contain {
+    width: var(--pagewidth);
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+/* ul nav style to remove list-style-type */
+ul.nav {
+  list-style-type: none;
+}
+
+/*  pointer class */
+.m-point {
+  cursor: pointer;
+}
+
+/*  table & table-cell classes */
+.display-table {
+  display: table;
+}
+
+.display-table > .table-cell {
+  display: table-cell;
+}
+
+/*  breakpoint classes */
+@media screen and (min-width: 48em) {
+  .hide-phablet {
+    display: none !important;
+    height: 0px !important;
+  }
+}
+/*  transparent background */
+.bg-opaque {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/*  padding helpers */
+.padding-1 {
+  padding: 1em;
+}
+
+.padding-2 {
+  padding: 2em;
+}
+
+.padding-3 {
+  padding: 3em;
+}
+
+/* ======================================================
+    RESET
+
+    leverages the normalize.css project and adds a few
+    sensible general resets after the normality sets in
+
+   ====================================================== */
+/* normalize.css v3.0.1 | MIT License | git.io/normalize
+   customized by sebastian ekstrom (zerosixthree.se) */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+  box-sizing: border-box;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+a {
+  background: transparent;
+}
+a:active, a:hover {
+  outline: 0;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+pre {
+  overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+button {
+  overflow: visible;
+  text-transform: none;
+}
+
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+input[type="reset"], input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input {
+  line-height: normal;
+}
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
+  padding: 0;
+}
+
+/* post-normal resets */
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ======================================================
+
+    TYPOGRAPHY
+
+    many who approach web typography end up in a labyrinth
+    of vertical rhythms, golden ratios, and SASS functions
+
+    we take a clean, empirical approach, defining sizes
+    and line heights that read well at all screen widths,
+    rather than attempting to construct the GUT
+    (Grand Unified Typography)
+
+
+   ====================================================== */
+/* mobile width type styles first */
+main {
+  font-size: 1em;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 1.25em;
+  font-family: "Roboto Condensed", Arial, sans-serif;
+}
+
+h2 {
+  font-size: 1.625em;
+  line-height: 1.25em;
+  font-weight: 500;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h3 {
+  font-size: 1.375em;
+  line-height: 1.125em;
+  font-weight: 500;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h4 {
+  font-size: 1.125em;
+  font-weight: 500;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: 600;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h6 {
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 600;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+p {
+  font-size: 1em;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: .5em 0;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  max-width: 100%;
+  max-width: 60em;
+}
+
+h1 small,
+h2 small,
+h3 small {
+  font-size: 67%;
+}
+
+h4 small,
+h5 small,
+h6 small {
+  font-size: 75%;
+}
+
+small {
+  font-size: .875em;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-tiny {
+  font-size: .75em;
+}
+
+.text-small {
+  font-size: .875em;
+}
+
+.text-medium {
+  font-size: 1.25em;
+}
+
+.text-large {
+  font-size: 1.5em;
+}
+
+.text-xlarge {
+  font-size: 2em;
+}
+
+.text-weight-med {
+  font-weight: 400;
+}
+
+.text-weight-light {
+  font-weight: 300;
+}
+
+.text-ellipsis,
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-hide,
+.hide-text {
+  font: 0/0;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.text-trunc,
+.trunc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ir {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* for tiny screens, shrink those headers down */
+@media screen and (max-width: 24em) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  h3 {
+    font-size: 1.125em;
+  }
+
+  h4, h5, h6 {
+    font-size: 1em;
+  }
+}
+/* > 536px --- mobiles */
+/* > 700px --- phablets */
+@media screen and (min-width: 44em) {
+  /* size up the text */
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.125;
+  }
+
+  h2 {
+    font-size: 2em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 1.225em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 1.125em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1em;
+    line-height: 1.125;
+    font-weight: 600;
+  }
+
+  blockquote {
+    font-size: 1.5em;
+    line-height: 1.475em;
+  }
+}
+@media print {
+  main {
+    font-size: 12pt;
+    padding: 1in;
+    line-height: 1.5em;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 30pt;
+  }
+
+  h2 {
+    font-size: 24pt;
+  }
+
+  h3, h4 {
+    font-size: 18pt;
+  }
+
+  h5, h6 {
+    font-size: 16pt;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.25;
+  }
+}
+pre, code {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+  white-space: pre\9;
+  background: #F0F2F1;
+  color: #333333;
+  font-family: "Anonymous Pro", "Consolas", Courier, monospace;
+}
+
+kbd {
+  background: #333333;
+  color: white;
+  font-weight: 700;
+  font-family: "Anonymous Pro", "Consolas", Courier, monospace;
+  padding: 2px 4px;
+}
+
+blockquote {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  font-family: var(--serif);
+  font-style: italic;
+  margin: 2em 8em 2em 2em;
+}
+
+blockquote cite, blockquote + cite {
+  font-size: .75em;
+  font-style: normal;
+  font-family: var(--sans-serif);
+  text-align: right;
+  display: block;
+}
+
+blockquote cite:before, blockquote + cite:before {
+  content: "\2014";
+}
+
+.center h1,
+.center h2,
+.center h3,
+.center h4,
+.center h5,
+.center h6,
+.center p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/*h1:first-child, 
+h2:first-child, 
+h3:first-child {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 300;
+}*/
+/* ======================================================
+    PARTS - you know, like car parts, but for web pages
+   ====================================================== */
+/* #######################################################################
+
+	meanMenu
+	--------
+	
+	To be used with jquery.meanmenu.js by Chris Wharton (http://www.meanthemes.com/plugins/meanmenu/)
+
+####################################################################### */
+/* hide the link until viewport size is reached */
+a.meanmenu-reveal {
+  display: none;
+  box-sizing: content-box;
+}
+
+/* when under viewport size, .mean-container is added to body */
+.mean-container .mean-bar {
+  float: left;
+  width: 100%;
+  position: relative;
+  background: #CEDEF5;
+  padding: 4px 0;
+  min-height: 42px;
+  z-index: 999999;
+}
+
+.mean-container a.meanmenu-reveal {
+  width: 22px;
+  height: 22px;
+  padding: 13px 13px 11px 13px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: #002D6F;
+  text-decoration: none;
+  font-size: 16px;
+  text-indent: -9999em;
+  line-height: 22px;
+  font-size: 1px;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.mean-container a.meanmenu-reveal span {
+  display: block;
+  background: #002D6F;
+  height: 3px;
+  margin-top: 3px;
+  border-radius: 2px;
+}
+
+.mean-container .mean-nav {
+  float: left;
+  width: 100%;
+  background: #CEDEF5;
+  margin-top: 33px;
+}
+
+.mean-container .mean-nav ul {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style-type: none;
+}
+
+.mean-container .mean-nav ul li {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+
+.mean-container .mean-nav ul li a {
+  display: block;
+  float: left;
+  width: 90%;
+  padding: 1em 5%;
+  margin: 0;
+  text-align: left;
+  color: #002D6F;
+  border-bottom: 1px solid #383838;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mean-container .mean-nav ul li li a {
+  width: 80%;
+  padding: 1em 10%;
+  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+  text-shadow: none !important;
+  visibility: visible;
+}
+
+.mean-container .mean-nav ul li.mean-last a {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.mean-container .mean-nav ul li li li a {
+  width: 70%;
+  padding: 1em 15%;
+}
+
+.mean-container .mean-nav ul li li li li a {
+  width: 60%;
+  padding: 1em 20%;
+}
+
+.mean-container .mean-nav ul li li li li li a {
+  width: 50%;
+  padding: 1em 25%;
+}
+
+.mean-container .mean-nav ul li a:hover {
+  background: #252525;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mean-container .mean-nav ul li a.mean-expand {
+  width: 26px;
+  height: 26px;
+  border: none !important;
+  padding: 12px !important;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  font-weight: 700;
+}
+
+.mean-container .mean-nav ul li a.mean-expand:hover {
+  background: none;
+}
+
+.mean-container .mean-push {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.mean-nav .wrapper {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Magnific Popup CSS */
+.mfp-bg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1042;
+  overflow: hidden;
+  position: fixed;
+  background: #0b0b0b;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.mfp-wrap {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1043;
+  position: fixed;
+  outline: none !important;
+  -webkit-backface-visibility: hidden;
+}
+
+.mfp-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 0 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.mfp-container:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.mfp-align-top .mfp-container:before {
+  display: none;
+}
+
+.mfp-content {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+  text-align: left;
+  z-index: 1045;
+}
+
+.mfp-inline-holder .mfp-content,
+.mfp-ajax-holder .mfp-content {
+  width: 100%;
+  cursor: auto;
+}
+
+.mfp-ajax-cur {
+  cursor: progress;
+}
+
+.mfp-zoom-out-cur,
+.mfp-zoom-out-cur .mfp-image-holder .mfp-close {
+  cursor: -moz-zoom-out;
+  cursor: -webkit-zoom-out;
+  cursor: zoom-out;
+}
+
+.mfp-zoom {
+  cursor: pointer;
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in;
+}
+
+.mfp-auto-cursor .mfp-content {
+  cursor: auto;
+}
+
+.mfp-close,
+.mfp-arrow,
+.mfp-preloader,
+.mfp-counter {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.mfp-loading.mfp-figure {
+  display: none;
+}
+
+.mfp-hide {
+  display: none !important;
+}
+
+.mfp-preloader {
+  color: #cccccc;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  text-align: center;
+  margin-top: -0.8em;
+  left: 8px;
+  right: 8px;
+  z-index: 1044;
+}
+
+.mfp-preloader a {
+  color: #cccccc;
+}
+
+.mfp-preloader a:hover {
+  color: white;
+}
+
+.mfp-s-ready .mfp-preloader {
+  display: none;
+}
+
+.mfp-s-error .mfp-content {
+  display: none;
+}
+
+button.mfp-close,
+button.mfp-arrow {
+  overflow: visible;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  display: block;
+  padding: 0;
+  z-index: 1046;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+.mfp-close {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-decoration: none;
+  text-align: center;
+  opacity: 0.65;
+  padding: 0 0 18px 10px;
+  color: white;
+  font-style: normal;
+  font-size: 28px;
+  font-family: Arial, Baskerville, monospace;
+}
+
+.mfp-close:hover, .mfp-close:focus {
+  opacity: 1;
+}
+
+.mfp-close:active {
+  top: 1px;
+}
+
+.mfp-close-btn-in .mfp-close {
+  color: #333333;
+}
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  color: white;
+  right: -6px;
+  text-align: right;
+  padding-right: 6px;
+  width: 100%;
+}
+
+.mfp-counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #cccccc;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.mfp-arrow {
+  position: absolute;
+  opacity: 0.65;
+  margin: 0;
+  top: 50%;
+  margin-top: -55px;
+  padding: 0;
+  width: 90px;
+  height: 110px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mfp-arrow:active {
+  margin-top: -54px;
+}
+
+.mfp-arrow:hover,
+.mfp-arrow:focus {
+  opacity: 1;
+}
+
+.mfp-arrow:before, .mfp-arrow:after,
+.mfp-arrow .mfp-b,
+.mfp-arrow .mfp-a {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 35px;
+  margin-left: 35px;
+  border: medium inset transparent;
+}
+
+.mfp-arrow:after,
+.mfp-arrow .mfp-a {
+  border-top-width: 13px;
+  border-bottom-width: 13px;
+  top: 8px;
+}
+
+.mfp-arrow:before,
+.mfp-arrow .mfp-b {
+  border-top-width: 21px;
+  border-bottom-width: 21px;
+}
+
+.mfp-arrow-left {
+  left: 0;
+}
+
+.mfp-arrow-left:after,
+.mfp-arrow-left .mfp-a {
+  border-right: 17px solid white;
+  margin-left: 31px;
+}
+
+.mfp-arrow-left:before,
+.mfp-arrow-left .mfp-b {
+  margin-left: 25px;
+  border-right: 27px solid #3f3f3f;
+}
+
+.mfp-arrow-right {
+  right: 0;
+}
+
+.mfp-arrow-right:after,
+.mfp-arrow-right .mfp-a {
+  border-left: 17px solid white;
+  margin-left: 39px;
+}
+
+.mfp-arrow-right:before,
+.mfp-arrow-right .mfp-b {
+  border-left: 27px solid #3f3f3f;
+}
+
+.mfp-iframe-holder {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.mfp-iframe-holder .mfp-content {
+  line-height: 0;
+  width: 100%;
+  max-width: 900px;
+}
+
+.mfp-iframe-scaler {
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-top: 56.25%;
+}
+
+.mfp-iframe-scaler iframe {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  background: black;
+}
+
+.mfp-iframe-holder .mfp-close {
+  top: -40px;
+}
+
+/* Main image in popup */
+img.mfp-img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  line-height: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 0 40px;
+  margin: 0 auto;
+}
+
+/* The shadow behind the image */
+.mfp-figure:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: 40px;
+  display: block;
+  right: 0;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  background: #444444;
+}
+
+.mfp-figure {
+  line-height: 0;
+}
+
+.mfp-bottom-bar {
+  margin-top: -36px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  cursor: auto;
+}
+
+.mfp-title {
+  text-align: left;
+  line-height: 18px;
+  color: #f3f3f3;
+  word-wrap: break-word;
+  padding-right: 36px;
+}
+
+.mfp-figure small {
+  color: #bdbdbd;
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.mfp-image-holder .mfp-content {
+  max-width: 100%;
+}
+
+.mfp-gallery .mfp-image-holder .mfp-figure {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px) {
+  /**
+   * Remove all paddings around the image on small screen
+   */
+  .mfp-img-mobile .mfp-image-holder {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mfp-img-mobile img.mfp-img {
+    padding: 0;
+  }
+
+  /* The shadow behind the image */
+  .mfp-img-mobile .mfp-figure:after {
+    top: 0;
+    bottom: 0;
+  }
+
+  .mfp-img-mobile .mfp-bottom-bar {
+    background: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    margin: 0;
+    top: auto;
+    padding: 3px 5px;
+    position: fixed;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .mfp-img-mobile .mfp-bottom-bar:empty {
+    padding: 0;
+  }
+
+  .mfp-img-mobile .mfp-counter {
+    right: 5px;
+    top: 3px;
+  }
+
+  .mfp-img-mobile .mfp-close {
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    text-align: center;
+    padding: 0;
+  }
+
+  .mfp-img-mobile .mfp-figure small {
+    display: inline;
+    margin-left: 5px;
+  }
+}
+@media all and (max-width: 900px) {
+  .mfp-arrow {
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+  }
+
+  .mfp-arrow-left {
+    -webkit-transform-origin: 0;
+    transform-origin: 0;
+  }
+
+  .mfp-arrow-right {
+    -webkit-transform-origin: 100%;
+    transform-origin: 100%;
+  }
+
+  .mfp-container {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+.mfp-ie7 .mfp-img {
+  padding: 0;
+}
+
+.mfp-ie7 .mfp-bottom-bar {
+  width: 600px;
+  left: 50%;
+  margin-left: -300px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.mfp-ie7 .mfp-container {
+  padding: 0;
+}
+
+.mfp-ie7 .mfp-content {
+  padding-top: 44px;
+}
+
+.mfp-ie7 .mfp-close {
+  top: 0;
+  right: 0;
+  padding-top: 0;
+}
+
+/************************************
+**
+**	CSS Sheet for Shortcode functions
+**	@file	shortcode.php
+**
+*************************************/
+/************************************
+**
+**	@Image Gallery Shortcode
+**
+*************************************/
+#thumb-gallery img.thumb {
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 2px solid #dedede;
+  padding: 7px;
+  margin: 7px 7px 0 0;
+  width: 125px;
+  height: auto;
+  transition: opacity, ease, 0.3s;
+}
+#thumb-gallery img.thumb:hover {
+  opacity: 0.7;
+}
+
+a.gallery-link {
+  color: #777;
+  text-decoration: none;
+  font-weight: normal !important;
+}
+
+/************************************
+**
+**	@Content Block Shortcode
+**
+*************************************/
+#row {
+  width: 100%;
+  clear: both;
+  min-height: 1px;
+}
+
+.block {
+  display: block;
+}
+
+.col-third {
+  width: 33.333333%;
+  float: left;
+  display: block;
+}
+
+.col-half {
+  width: 50%;
+  float: left;
+  display: block;
+}
+
+.col-two_third {
+  width: 66.666666%;
+  float: left;
+  display: block;
+}
+
+.col-third,
+.col-half,
+.col-two_third {
+  padding: 11px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.col-third img,
+.col-half img {
+  width: 100%;
+  height: auto;
+  margin: 0px auto;
+}
+
+/*	@Responsive Width & Float */
+@media screen and (max-width: 650px) {
+  .col-half, .col-twothird, .col-onethird {
+    width: 100%;
+    float: none;
+  }
+
+  .col-half img, .col-twothird img, .col-onethird img {
+    display: block;
+    margin: 0px auto;
+    float: none;
+  }
+}
+.wrapper .header header {
+  display: table;
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.wrapper .header header aside {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 2em;
+}
+.wrapper .header header .logo {
+  width: 59%;
+  font-family: "Couture Bold", Arial, sans-serif;
+  text-align: center;
+}
+.wrapper .header header .logo a {
+  color: #FFFFFF;
+}
+.wrapper .header header .logo a img {
+  max-width: 250px;
+}
+@media only screen and (max-width: 45em) {
+  .wrapper .header header .logo a img {
+    max-width: 100px;
+  }
+}
+.wrapper .header header .menu-toggle,
+.wrapper .header header .sharing {
+  width: 20%;
+}
+.wrapper .header header .sharing .sharing-container a:not(:last-child) {
+  margin-right: .125em;
+}
+.wrapper .header header .sharing .sharing-container a,
+.wrapper .header header .sharing .sharing-container a:visited {
+  display: inline-block;
+  float: right;
+  color: #FFFFFF;
+  padding: .125em;
+}
+.wrapper .header header .sharing .sharing-container a:hover,
+.wrapper .header header .sharing .sharing-container a:active {
+  color: #de6b15;
+}
+.wrapper .header header .sharing .sharing-container i {
+  font-size: .8em;
+}
+@media only screen and (max-width: 45em) {
+  .wrapper .header header .sharing {
+    display: none;
+  }
+}
+.wrapper .header nav.main {
+  max-height: 0;
+  overflow-y: hidden;
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+.wrapper .header nav.main.open {
+  max-height: 55px;
+}
+.wrapper .header nav.main .menu {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+  padding: 0 0 1em 0;
+}
+.wrapper .header nav.main .menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 2em;
+}
+.wrapper .header nav.main .menu ul li {
+  list-style: none;
+  display: inline-block;
+  float: left;
+}
+.wrapper .header nav.main .menu ul li a {
+  font-family: "Alegreya Sans SC", sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+.wrapper .header nav.main .menu ul li:not(:last-child) {
+  margin-right: .8em;
+}
+
+.wrapper .footer footer .copyright {
+  padding-top: 1em;
+}
+
+/*
+ *  AUDIO PLAYER CSS
+ *  @date 12/14
+ *  @author Andrew Carl
+ *
+ ===========*/
+.buy-link {
+  margin-top: .5em;
+  display: inline-block;
+  background: #de6b15;
+  padding: .5em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: .8em;
+  transition: background, ease, 0.3s;
+  -webkit-transition: background, ease, 0.3s;
+  -moz-transition: background, ease, 0.3s;
+}
+
+.buy-link:hover,
+.buy-link:active {
+  color: #FFFFFF !important;
+  background: #ec863a;
+}
+
+#audio-player {
+  /*  Audio Player Module */
+  /*
+   *  ANIMATED CSS AUDIO BARS
+   *  @source http://codepen.io/andrewjcarl/pen/yyazzW
+   *
+   =========*/
+}
+#audio-player > section {
+  padding: 2em;
+}
+#audio-player > section > h3 {
+  margin: 0 0 1em 0;
+}
+#audio-player .album-container {
+  display: table;
+  width: 100%;
+  padding-bottom: 2em;
+  margin-bottom: 2em;
+  border-bottom: 2px solid #5F5F5F;
+}
+#audio-player .album-container .album-single:not(:last-child) {
+  margin-right: 2em;
+}
+#audio-player .album-container .album-single {
+  position: relative;
+  float: left;
+  width: 10em;
+  height: 10em;
+  overflow: hidden;
+}
+#audio-player .album-container .album-single img {
+  width: 100%;
+  height: auto;
+}
+#audio-player .album-container .album-single .album-meta {
+  height: auto;
+  width: 100%;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.75);
+  padding: .5em;
+  position: absolute;
+  bottom: -65px;
+  left: 0;
+  transition: all, .3s, ease;
+  -moz-transition: all, .3s, ease;
+  -webkit-transition: all, .3s, ease;
+}
+#audio-player .album-container .album-single .album-meta span {
+  width: 100%;
+  display: inline-block;
+}
+#audio-player .album-container .album-single .album-meta .title {
+  font-family: "Couture Bold", Arial, sans-serif;
+}
+#audio-player .album-container .album-single .album-meta .year {
+  font-family: "Roboto", Arial, sans-serif;
+  color: #de6b15;
+  font-size: .8em;
+}
+#audio-player .album-container .album-single:hover .album-meta, #audio-player .album-container .album-single.active .album-meta {
+  bottom: 0px;
+}
+#audio-player .album-container .album-single.active::before {
+  content: "\ea27";
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  z-index: 99;
+  padding: .25em;
+  text-shadow: 1px 1px 10px black;
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  color: #FFFFFF;
+}
+#audio-player .player-wrapper {
+  width: 100%;
+  display: table;
+}
+#audio-player .player-container {
+  width: 55%;
+  float: left;
+}
+#audio-player .player-album,
+#audio-player .player-meta,
+#audio-player .player-tracks {
+  width: 100%;
+  display: table;
+}
+#audio-player .player-meta .play-btn {
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 1em;
+  width: 45px;
+}
+#audio-player .player-meta .play-btn .btn-box {
+  height: 45px;
+  width: 45px;
+  background: #F0F2F1;
+  color: #333333;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+}
+#audio-player .player-meta .track-meta {
+  display: table-cell;
+  vertical-align: middle;
+}
+#audio-player .player-meta .track-meta .title {
+  font-size: 14px;
+}
+#audio-player .player-meta .track-meta .play-options .progress {
+  display: inline-block;
+  width: 60%;
+  position: relative;
+  height: 3px;
+  vertical-align: middle;
+  background: white;
+  overflow: hidden;
+}
+#audio-player .player-meta .track-meta .play-options .progress span {
+  background: #de6b15;
+  height: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#audio-player .player-meta .track-meta .play-options .control {
+  width: 35%;
+  display: inline-block;
+  vertical-align: middle;
+}
+#audio-player .player-meta .track-meta .play-options .control button:not([disabled]):hover {
+  color: #de6b15;
+}
+#audio-player .player-meta .track-meta .play-options .control button[disabled],
+#audio-player .player-meta .track-meta .play-options .control button[disabled]:hover {
+  opacity: .75;
+}
+#audio-player .album-description {
+  width: 45%;
+  float: left;
+}
+#audio-player .album-description h3 {
+  margin-top: 0;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+#audio-player .album-description h3 .title {
+  color: #de6b15;
+}
+#audio-player .album-description .text {
+  font-size: .8em;
+}
+#audio-player .track-container {
+  padding: 1em 0;
+}
+#audio-player .track-container .track-single {
+  display: table;
+  margin-bottom: .5em;
+}
+#audio-player .track-container .track-single button {
+  display: table-cell;
+  height: 15px;
+  width: 15px;
+  font-size: 10px;
+  line-height: 18px;
+  padding: 0;
+  text-align: center;
+  background: #F0F2F1;
+  color: #333333;
+}
+#audio-player .track-container .track-single span {
+  display: table-cell;
+  font-size: 14px;
+  padding-left: .5em;
+}
+#audio-player button {
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+}
+@media (max-width: 550px) {
+  #audio-player .album-description,
+  #audio-player .player-container {
+    width: 100%;
+    clear: both;
+    display: inline-block;
+  }
+}
+#audio-player .bars {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  display: inline-block;
+}
+#audio-player .animated .bar {
+  animation: sound 0ms -800ms linear infinite alternate;
+  -webkit-animation: sound 0ms -800ms linear infinite alternate;
+}
+#audio-player .bar {
+  background: white;
+  bottom: 1px;
+  height: 3px;
+  position: absolute;
+  width: 3px;
+  transition: height, 0.3s, ease;
+  -moz-transition: height, 0.3s, ease;
+  -webkit-transition: height, 0.3s, ease;
+}
+@keyframes sound {
+  0% {
+    opacity: .35;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 14px;
+  }
+}
+@-webkit-keyframes sound {
+  0% {
+    opacity: .35;
+    height: 3px;
+  }
+  100% {
+    opacity: 1;
+    height: 14px;
+  }
+}
+#audio-player .bar:nth-child(1) {
+  left: 1px;
+  animation-duration: 474ms;
+  -webkit-animation-duration: 474ms;
+}
+#audio-player .bar:nth-child(2) {
+  left: 5px;
+  animation-duration: 433ms;
+  -webkit-animation-duration: 433ms;
+}
+#audio-player .bar:nth-child(3) {
+  left: 9px;
+  animation-duration: 407ms;
+  -webkit-animation-duration: 407ms;
+}
+#audio-player .bar:nth-child(4) {
+  left: 13px;
+  animation-duration: 458ms;
+  -webkit-animation-duration: 458ms;
+}
+
+li.widget {
+  list-style: none;
+}
+
+li.widget .content-block img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-center {
+  display: block;
+  margin: 0 auto;
+}
+
+.img-contain-full {
+  width: 100%;
+  height: auto;
+}
+
+/* ======================================================
+    PAGES - views and components for the website
+   ====================================================== */
+.press {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 14px;
+}
+.press p {
+  text-align: justify;
+  font-style: italic;
+}
+.press a {
+  font-family: "Roboto Condensed", Arial, sans-serif;
+  text-transform: uppercase;
+  color: #de6b15;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/****************
+**	HOME SCSS
+****************/
+.blog-entry-title {
+  color: #de6b15;
+}
+
+.blog-entry-excerpt {
+  color: #FFFFFF;
+}
+
+.blog-entry-meta {
+  margin-top: .5em;
+}
+
+.blog-entry-meta a {
+  color: #808080;
+  font-style: italic;
+}
+
+#home .blog-feed {
+  flex: 0 0 75%;
+  -webkit-flex: 0 0 75%;
+  padding-right: 1em;
+}
+
+#home .right-sidebar {
+  flex: 0 0 25%;
+  -webkit-flex: 0 0 25%;
+}
+
+@media only screen and (max-width: 45em) {
+  #home .flex {
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+  }
+
+  #home .blog-feed {
+    margin-bottom: 1em;
+  }
+
+  #home .blog-feed,
+  #home .right-sidebar {
+    flex: 0 0 100% !important;
+    -webkit-flex: 0 0 100% !important;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

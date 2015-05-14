@@ -1,0 +1,244 @@
+/*
+**	@file		style.css
+**	@author		Andrew Carl, andrew@wall-it.co
+**	@date		8/29/13
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
+/*
+**	@Primary
+**
+*/ 
+
+/* body {font-size: 16px; font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;background:  #363636;}
+
+body * {font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {color: #888; font-family: 'Lato', sans-serif; font-weight: 700; margin-bottom: 13px;}
+
+h1 {font-size: 2.2em !important; }
+h2 {font-size: 2em !important;}
+h3 {font-size: 1.4em !important;}
+h4 {font-size: 1em !important;}
+h5 {font-size: 1.4em !important;}
+h6 {font-size: 1.2em !important;}
+
+.left {float: left;}
+.right {float: right;}
+.center {text-align:center;}
+img.center {display: block; margin: 0px auto;}
+
+.shadow-light {text-shadow: 2px 2px 2px black;}
+
+a.logo {display: block; text-indent: -9999px; width: 250px; height: auto; background: url('images/logo.png') no-repeat center center; margin-top: 25px;}
+a.logo.center {margin: 0px auto;}
+a.logo.marginbottom {margin-bottom:27px;}
+
+#wrapper {width: 100%;height:100%;}
+
+.block {margin: 0px auto;display: block;max-width: 978px;}
+
+a[href], input[type='submit'], input[type='image'], label[for], select, button, .pointer {cursor: pointer;}
+
+.top-round {border-top-right-radius: 5px; border-top-left-radius: 5px;}
+
+
+**  @Header
+
+#header-top {x-background: url('images/black-opacity.png') repeat top left; padding: 15px 0 7px 7px; width: 100%; min-width: 1400px;}
+#header {width: 1400px; margin: 0 0 0 13px;}
+  #logo {width: 290px; height: 75px; display: block; background: url('images/logo.png') no-repeat top left transparent; float: left; margin: 25px 0 25px 25px; }
+  section#nav {float: left; width: 609px;}
+  #social {float:right; width: 609px; height: 35px; display: block; }
+  #social .icons {display: block; float: right;}
+
+**  @Nav
+
+nav#main {padding-top: 13px; float: left; color: #b5b5b5; font-family: Impact, Charcoal, sans-serif !important; font-size: 36px;}
+  nav#main ul.menu {list-style: none; width: 100%; margin: 0px auto; display: block; padding: 17px;}
+    nav#main ul.menu li {display: inline; float: left; margin-right: 17px;}
+      nav#main ul.menu li a, 
+      nav#main ul.menu li a:visited  {text-decoration: none; height: 25px; display: block; text-indent: -9999px;      
+        -o-transition:background-image .25s ease-in;
+        -ms-transition:background-image .25s ease-in;
+        -moz-transition:background-image .25s ease-in;
+        -webkit-transition:background-image .25s ease-in;
+        ...and now for the proper property
+        transition: background-image .25s ease-in;}
+      nav#main ul.menu li a:hover {text-decoration: none !important; background-position: 0 0 !important;}
+      nav#main ul.menu li a.active {background-position: 0 0 !important;}
+
+      nav#main ul.menu li a#home { background: url('images/home-sprite.png') top left no-repeat; width: 73px;background-position: 0 -25px; }
+      nav#main ul.menu li a#story {width: 84px;  background: url('images/story-sprite.png') top left no-repeat; background-position: 0 -25px; }
+      nav#main ul.menu li a#download { width: 162px;  background: url('images/download-sprite.png') top left no-repeat;background-position: 0 -25px; }
+      nav#main ul.menu li a#cast { width: 173px;  background: url('images/cast-sprite.png') top left no-repeat;background-position: 0 -25px; }
+
+
+
+**  @Main Pages
+
+div#main {min-width: 860px;position: relative; min-height:87%; height: auto !important; height: 100%; margin: 0 auto 0;}
+
+section#left {width: 250px; float: left; padding: 13px 0 0 47px; }
+  
+  section#left nav {box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; background: rgba(0,0,0,0.7); display: table;  width: 185px}
+
+  section#left nav ul li {float: right;clear: both;  padding: 13px; width: 100% ; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; text-align: right; transition: background, ease, 0.3s;}
+
+  section#left nav ul li.active, section#left nav ul li:hover {background: black;}
+
+  section#left nav ul li a {color: white; font-family: 'Lato', sans-serif; text-decoration: none; font-size: 22px; font-weight: 300;}
+
+section#content {max-width: 1400px; float: right; padding: 13px 27px 0 0; position: relative;}
+
+section#pages {position: relative; margin: 0px auto; width: 650px;}
+  section#pages article {position: absolute; top: 0; background: rgba(0,0,0,.7); color: white; z-index: 99; padding:35px 25px 25px 25px; margin: 13px auto; width: 650px;}
+
+    section#pages article a.close {color: #dedede; display: block; width: 25px; height: 25px; font-weight: normal; text-transform: uppercase; text-align:center; top: 0; right: 0; position: absolute; font-size:24px; cursor: pointer;padding:5px; }
+    section#pages article a.close:hover {background: #dedede; color: black;}
+
+section#pages article p {font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; margin-bottom:13px;}
+
+section#pages article::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+section#pages article::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.3); 
+    border-radius: 10px;
+}
+ 
+section#pages article::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.5); 
+}
+
+span.impact {font-family: Impact, Charcoal, sans-serif; color: #888 !important;}
+
+
+
+**  @Table
+
+table.center {display: table-block; margin: 13px auto; color: white; font-weight: normal;}
+  table tbody {}
+  table tr {margin-bottom:7px;}
+    table tr td {padding:7px;}
+
+table.downloads {}
+table.downloads img {width: 164px; height: auto;}
+
+table.downloads a {font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; font-weight: normal; color: #1808f4;text-align:center; margin:0px auto 7px auto; display: block; color: white;}
+table.downloads a:hover {color: #888}
+
+**  @Input
+
+input {font-size:18px; padding: 7px; margin: 0px auto; display: block; margin-bottom: 7px;}
+
+
+**  @Footer
+
+.push {clear:both;}
+.push, #footer-out {height: 15px;}
+
+#footer-out {background: url('images/black-opacity.png') repeat top left; width: 100%;min-width: 700px; padding: 15px 0;position:relative;}
+
+#footer {max-width: 1400px; margin: 25px auto;display: block;clear: both; }
+#footer img {}
+
+div.img-container {display: block; width: 1050px; margin: 0px auto;}
+div.img-container img {float:left;}
+div.img-container a.vladar {background: url('images/vladar-logo.png') center center no-repeat ; background-size:100%; width: 65px; height: 65px; display: block; margin-left:13px;}
+
+div.building-block {display: block; margin: 0px auto; z-index: 99;width:24px; position:absolute; left: 50%;}
+  div.building-block a {width:24px;height:17px;display:block;background:url('images/arrow-footer.png') no-repeat center center;cursor:pointer;}
+  div.building-block a.down {background:url('images/arrow-footer-down.png') no-repeat center center; }  
+
+.footer-link a, .footer-link a:visited {color: #7c6525; font-size: 12px; font-family: Arial;}
+.footer-link a:hover {color: #7c6525; text-decoration:underline;}
+**  @Buttons
+**
+
+button#next, button#prev {background: transparent;position:absolute; top: 0; display: block; text-indent: -9999px;width: 0; height: 0;top:50%;padding:0px !important;}
+button#next {right: 20px;   
+  border-top: 15px solid transparent;
+  border-bottom:15px solid transparent;
+  border-left: 25px solid rgba(0,0,0,0.6);}
+button#prev {left: 20px;  
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 25px solid rgba(0,0,0,0.6);}
+
+button {border: none; margin:1px;}
+
+Sizes
+  button.small {font-size: .8em; padding: 3px;}
+  button.medium {font-size:1.2em; padding: 7px;}
+  button.large {font-size: 1.6em; padding: 13px;}
+
+Types
+  button.round {border-radius: 7px;}
+  
+  button.close {border-radius: 15px; font-size: .8em;background: #002d6f; color: white; font-weight: bold; float:right; padding: 5px;}
+
+Colors
+
+
+** @Background slider
+
+#slideshow {
+    position:relative;
+    height:0;
+    z-index:-1;
+}
+  
+#slideshow IMG {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:8;
+    opacity:0.0;
+}
+  
+#slideshow IMG.active {
+    z-index:10;
+    opacity:1.0;
+}
+  
+#slideshow IMG.last-active {
+    z-index:9;
+}
+  
+#slideshow img {
+    Set rules to fill background
+    min-height: 100%;
+    min-width: 1024px;
+  
+    Set up proportionate scaling
+    width: 100%;
+    height: auto;
+  
+    Set up positioning
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    object-fit: fill;
+}
+ 
+
+
+@media screen and (max-width: 1400px) {
+  #slideshow img {x-width: auto;}
+}
+
+@media screen and (max-width: 1200px) {
+  #main, #header {max-width: 1200px !important;}
+
+}
+
+@media screen and (max-width: 900px) {
+
+}
+
+ */

@@ -1,0 +1,239 @@
+/* ====================================
+   GRIDS and LAYOUT
+
+   building a well-named grid system is notoriously difficult
+   so we offer a few options
+
+   the first is what we call a FRACTIONAL GRID
+   it aims to be responsive, browser-friendly, flexible, and easy to lay out
+
+   the next is a FLEXBOX GRID
+   it is the future, but requires more shims, shivs, polyfills, and fallbacks
+
+   the last is the traditional FIXED GRID
+   you may remember it from such frameworks as Bootstrap
+
+   ==================================== */
+
+$width-page:    60em;  //  960px
+$width-laptop:  80em;  // 1280px
+$width-uhd:     160em; // 2560px
+$width-hd:      120em; // 1920px
+$width-tablet:  64em;  // 1024px
+$width-phablet: 48em;  // 768px
+
+
+/* ====================================
+ * HEADER & NAV SIZING
+ * ==================================== */
+$header-nav-mobile-height: 40px;
+$header-nav-desktop-height: 60px;
+
+/* ====================================
+ * PAGE SIZING
+ * ==================================== */
+$page-max-width: $width-page;
+
+/* ====================================
+ * FRACTIONAL GRID
+ * this grid uses justified inline-blocks
+ * ==================================== */
+
+/* first make a row */
+.row {
+  font-size: 0.1px;
+  text-align: justify;
+
+  &:after {
+    content: "";
+    width: 100%;
+    display: inline-block;
+    height: 0;
+  }
+
+  &.center * {
+    text-align: center;
+  }
+
+  /* then add blocks of fractional widths to the rows */
+  .block {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    font-size: 1rem;
+
+    &.center {
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* on mobile, stretch the partial blocks to full width */
+    &.half,
+    &.full,
+    &.third.two,
+    &.fourth.three,
+    &.third {
+      width: 100%;
+    }
+
+    &.sixth,
+    &.fifth,
+    &.fourth {
+      width: 48%;
+    }
+
+    &.seventh {
+      width: 14.2%;
+      text-align: center;
+    }
+  }
+}
+
+/* > 536px --- bigger than iPhone portrait */
+@media screen and (min-width: 33.5em) {
+  /* let .half .third etc. express themselves */
+  .row .block.half {
+    width: 48%;
+  }
+
+}
+
+/* > 700px --- phablets */
+@media screen and (min-width: 44em) {
+  ul.row {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* > 831px */
+@media screen and (min-width: 52em) {
+  .row {
+    .block.third {
+      width: 31%
+    }
+
+    .block.third.two {
+      width: 64%
+    }
+  }
+}
+
+/* > 1007px */
+@media screen and (min-width: 63em) {
+  .row {
+    .block.fourth {
+      width: 23%
+    }
+
+    .block.fourth.three {
+      width: 73%
+    }
+  }
+}
+
+/* > 1199px */
+@media screen and (min-width: 75em) {
+  .row {
+    .block.fifth {
+      width: 18.5%
+    }
+
+    .block.fifth.two {
+      width: 37%
+    }
+
+    .block.fifth.four {
+      width: 78.5%;
+    }
+
+    .block.sixth {
+      width: 14.5%
+    }
+
+    .block.sixth.five {
+      width: 84%;
+    }
+  }
+}
+
+@function calculateWidth($cols, $margin) {
+  @return (100% - ($cols - 1) * $margin) / $cols;
+}
+
+%flex-item {
+  float: left;
+}
+
+@mixin one-whole {
+  width: 100%;
+}
+
+@mixin one-half($margin: 4) {
+  width: calculateWidth(2, $margin);
+  margin-right: $margin * 1%;
+  @extend %flex-item;
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+  &.even {
+    margin-right: 0;
+  }
+}
+
+@mixin one-third($margin: 4) {
+  width: calculateWidth(3, $margin);
+  margin-right: $margin * 1%;
+  @extend %flex-item;
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+  &.third {
+    margin-right: 0;
+  }
+}
+
+@mixin one-quarter($margin: 4) {
+  width: calculateWidth(4, $margin);
+  margin-right: $margin * 1%;
+  @extend %flex-item;
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+  &.fourth {
+    margin-right: 0;
+  }
+}
+
+@mixin one-fifth($margin: 4) {
+  width: calculateWidth(5, $margin);
+  margin-right: $margin * 1%;
+  @extend %flex-item;
+  &:nth-child(5n) {
+    margin-right: 0;
+  }
+  &.fifth {
+    margin-right: 0;
+  }
+}
+
+@mixin two-thirds($margin: 4) {
+  $widthOfOneThird: calculateWidth(3, $margin);
+  width: $widthOfOneThird * 2 + $margin;
+  margin-right: $margin * 1%;
+  @extend %flex-item;
+}
+
+@mixin last {
+  margin-right: 0;
+}
+
+@mixin container {
+  @include clearfix;
+  max-width: $width-page;
+  padding: 0 $padding;
+  margin: 0 auto;
+  @include bp_small {
+    padding: 0 $padding / 2;
+  }
+}

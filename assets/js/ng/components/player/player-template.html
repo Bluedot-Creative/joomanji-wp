@@ -1,0 +1,35 @@
+
+<div class="player-meta">
+  
+    <div class="play-btn">
+        <button class="btn-box orange playpause" ng-click="playpause()" ng-class="{paused:audio.paused}">
+            <i ng-class="(audio.paused) ? 'icon-play' : 'icon-pause'"></i>
+        </button>
+    </div>
+
+    <div class="track-meta">
+
+        <div class="bars" ng-class="{'animated':!audio.paused}">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <span class="title">{{info.title}}</span>
+
+        <div class="play-options">
+            <div class="progress">
+                <span style="width: {{audio.currentTime / audio.duration * 100}}%"></span>
+            </div>
+
+            <div class="control">
+                <button ng-disabled="currentNum == 0" class="prev" ng-click="prev()"><i class="icon-previous"></i></button>
+
+                <button ng-disabled="currentNum >= (totalNum-1)" class="next" ng-click="next()"> <i class="icon-next"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
